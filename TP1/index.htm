@@ -9,9 +9,18 @@
   
   <body topmargin="80" leftmargin="50" bgcolor="grey" text="darkblue" vlink = "pink" link = "purple"  alink="yellow" 
   background="Images/fond.jpg" bgproperties="fixed" >
+  
+	<!-- Sommaire -->
+	<font size="5"> <b>Sommaire : </b> </font>
+	<ol>
+			<li> <a href= "#Info_Pers_id">Informations Personnelles du Candidat</a>
+			<li> <a href= "#Cursus_Etd_id">Cursus de l'&eacute;tudiant</a>
+			<li> <a href= "#Lang_Prog_id">Langages de Programmation ma&icirc;tris&eacute;s</a>
+			<li> <a href= "#PFE_id">Projet de Fin d'&eacute;tude</a>
+    </ol>
     
 	<!-- Debut première section -->
-	<Div class="Info_Pers">
+	<Div class="Info_Pers" id="Info_Pers_id">
         <!-- Avoir  pour couleur grenat-->
         <h1 align="center"><font face="Arial" color="#6E0B14">Informations Personnelles du Candidat </font></h1>
         <p align="left" >
@@ -37,7 +46,7 @@
 	
 	
 	<!-- Debut deuxième section -->
-    <Div class="Cursus_Etd">
+    <Div class="Cursus_Etd" id="Cursus_Etd_id">
         <!-- Avoir  pour couleur grenat-->
         <h1 align="center">
             <font face="Arial" color="#6E0B14">Cursus de l'&eacute;tudiant </font>
@@ -83,10 +92,10 @@
 	
 	
 	<!-- Debut troisième section -->
-    <Div class="Lang_Prog">
+    <Div class="Lang_Prog" id="Lang_Prog_id">
         <!-- Avoir  pour couleur grenat-->
         <h1 align="center">
-            <font face="Arial" color="#6E0B14">Langages de Programmation ma&Icirc;tris&eacute;s </font>
+            <font face="Arial" color="#6E0B14">Langages de Programmation ma&icirc;tris&eacute;s </font>
         </h1>
 		
         <ul>
@@ -103,13 +112,13 @@
 	
 	
 	<!-- Debut quatrième section -->
-    <Div class="PFE", style="text-indent: 15px;">  <!--Le text-indent permet d'ajouter L'alinéa a chaque paragraphes de la section -->
+    <Div class="PFE" id="PFE_id">  
         <!-- Avoir  pour couleur grenat-->
         <h1 align="center">
             <font face="Arial" color="#6E0B14">Projet de Fin d'&eacute;tude</font>
         </h1>
 		
-        <p align="left" >
+        <p align="left" , style="text-indent: 15px;"> <!--Le text-indent permet d'ajouter L'alinéa-->
 
 		La recommandation de produits est devenue un moyen indispensable pour retrouver les produits les plus appropriés
 		à acheter sur le net. Nous nous intéressons dans le cadre de ce projet de fin d’études de licence à la proposition
@@ -142,19 +151,51 @@
 		
 		<p align="left" >
 		Le code d’une page web doit être mis entre les deux balises &lsaquo;HTML&rsaquo; et &lsaquo;/HTML&rsaquo; 
-		et il peut contenir du texte ou des formules mathématiques telle que : <math>&Pi;i =&alpha;(X<sub>1</sub> + Y<sub>2</sub>)<sup>k+1</sup>/ &lambda;<sup>i</sup></math>
+		et il peut contenir du texte ou des formules mathématiques telle que : <math>&Pi;i =&alpha;(<var>X<var><sub>1</sub> + <var>Y<var><sub>2</sub>)<sup>k+1</sup>/ &lambda;<sup>i</sup></math>
+		</p>
+		
+		<p align="left" >
+		<b>&Eacute;nonc&eacute; :</b> <br>
+		&Eacute;crire un programme C qui lit une cha&icirc;ne de caractères et v&eacute;rifie si elle est palindrome ou non. <br>
+		On rappelle qu'une cha&icirc;ne de caractères est dite palindrome,si elle se lit de la même manière dans les deux sens. <br>
+		Exemple: non, touot et 1234321 sont toutes des cha&icirc;nes de caractères palindromes.<br><br>
+		
+		<b>Solution :</b> <br>
+		<pre>
+		<code>
+			#include &lsaquo;stdio.h&rsaquo;
+			#include &lsaquo;stdlib.h&rsaquo;
+			#include &lsaquo;string.h&rsaquo;
+			int main()
+			{
+				char s[100];
+				int i,j,ok;
+				printf("Donnez une chaine de caracteres:\n");
+				scanf("%s",s);
+				ok=1;
+				for(i=0,j=strlen(s)-1;i&lsaquo;j;i++,j--)
+				{
+				   if(s[i]!=s[j])
+				   {
+					 ok=0;
+					 break;
+				   }
+				}
+				if(ok==1) printf("%s est palindrome.\n",s);
+				else printf("%s n'est pas palindrome.\n",s);
+				system("pause");
+				return 0;
+			}
+		</code>
+		</pre>
+		
 		</p>
 		
         <hr color="green" align="center" width="%(70%)" size="4px">
     </Div>
 	<!-- Fin quatrième section -->
 	
-
-
-
-
-
-
+	<a href= "#" ><center><b>HAUT DE PAGE</b></center></a>
 
   </body>
 </html>
