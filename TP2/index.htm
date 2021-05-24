@@ -10,21 +10,24 @@
   <body topmargin="80" leftmargin="50" bgcolor="grey" text="darkblue" vlink = "pink" link = "purple"  alink="yellow" 
   
   background="Images/fond.jpg" bgproperties="fixed" >
+<table border=3px bordercolor="orange" bgcolor="white" cellspacing="3px" >
+	<td style="border:none;padding:20px">
   <div align="center">
-  <table border=3px bordercolor="orange" bgcolor="white" >
-	<td >
+    
 	<!-- Sommaire -->
-	<font size="5"> <b>Sommaire : </b> </font>
-	<ol>
+	<h1 align="left"><font size="5" > <b>Sommaire : </b> </font></h1>
+	<ol align="left">
 			<li> <a href= "#Info_Pers_id">Informations Personnelles du Candidat</a>
 			<li> <a href= "#Cursus_Etd_id">Cursus de l&#39;&eacute;tudiant</a>
 			<li> <a href= "#Lang_Prog_id">Langages de Programmation ma&icirc;tris&eacute;s</a>
 			<li> <a href= "#PFE_id">Projet de Fin d&#39;&eacute;tude</a>
     </ol>
-   <table border=2px bordercolor="black" bgcolor="silver" style="border-top:none;border-bottom:none;" >
-      <td >
+   
 	<!-- Debut première section -->
-	<Div class="Info_Pers" id="Info_Pers_id">
+	<Div class="Info_Pers" id="Info_Pers_id" style="margin: 3px;" >
+
+		<table  bordercolor="black"   border=2px bgcolor="silver"  cellspacing="0"  >
+			<td  style="border:none;padding:20px">
         <!-- Avoir  pour couleur grenat-->
         <h1 align="center"><font face="Arial" color="#6E0B14">Informations Personnelles du Candidat </font></h1>
         <p align="left" >
@@ -47,17 +50,21 @@
 				<img src="../TP1/Images/Photo.jpg" width="100" height="120" alt="Photo en taille réduite (miniature)"/>   <br>
 			</a>
         </p>
-        <hr color="green" align="center" width ="%(70%)" size="4px">
     </Div>
 	</td>
 	</table>
+	
+	
+
     <!-- Fin première section -->
 	
 	
 	<!-- Debut deuxième section -->
-	<table border=2px bordercolor="black" bgcolor="silver" style="border-top:none;border-bottom:none;">
-		<td>
-    <Div class="Cursus_Etd" id="Cursus_Etd_id">
+	
+    <Div class="Cursus_Etd" id="Cursus_Etd_id" style="margin: 3px;">
+		<table border=2px bordercolor="black" bgcolor="silver"   cellspacing="0">
+			<!-- Espacement + non double bordure-->
+			<td style="border:none;padding:20px">
         <!-- Avoir  pour couleur grenat-->
         <h1 align="center">
             <font face="Arial" color="#6E0B14">Cursus de l&#39;&eacute;tudiant </font>
@@ -101,18 +108,18 @@
 					
 				</ul>
         </ol>
-        <hr color="green" align="center" width="%(70%)" size="4px">
     </Div>
 	</td>
 	</table>
+	
 	<!-- Fin deuxième section -->
 	
 	
 	<!-- Debut troisième section -->
-	<table border=2px bordercolor="black" bgcolor="silver" style="border-top:none;border-bottom:none;">
-		<td>
-	<Div class="Lang_Prog" id="Lang_Prog_id">
-       
+	
+	<Div class="Lang_Prog" id="Lang_Prog_id" style="margin: 3px;" >
+	<table border=2px bordercolor="black" bgcolor="silver" cellspacing="0">
+		<td style="border:none;padding:20px">
 		<!-- Avoir  pour couleur grenat-->
         <h1 align="center">
             <font face="Arial" color="#6E0B14">Langages de Programmation ma&icirc;tris&eacute;s </font>
@@ -126,17 +133,18 @@
 			<li> Python
         </ul>
 		
-        <hr color="green" align="center" width="%(70%)" size="4px">
     </Div>
 	</td>
 	</table>
+	
 	<!-- Fin troisième section -->
 	
 	
 	<!-- Debut quatrième section -->
-	<table border=2px bordercolor="black" bgcolor="silver" style="border-top:none;border-bottom:none;">
-		<td>
-    <Div class="PFE" id="PFE_id">  
+
+    <Div class="PFE" id="PFE_id" style="margin: 3px;">  
+		<table border=2px bordercolor="black" bgcolor="silver" cellspacing="0">
+			<td style="border:none;padding:20px">
         <!-- Avoir  pour couleur grenat-->
         <h1 align="center">
             <font face="Arial" color="#6E0B14">Projet de Fin d&#39;&eacute;tude</font>
@@ -215,15 +223,17 @@
 		
 		</p>
 		
-        <hr color="green" align="center" width="%(70%)" size="4px">
-    </Div>
+     </Div>
 	</td>
 	</table>
+
 	<!-- Fin quatrième section -->
-	
+	<Div style="margin: 3px;">
 	<a href= "#" ><center><b>HAUT DE PAGE</b></center></a>
+	</Div>
+
+</div>
 </td>
 </table>
-</div>
   </body>
 </html>
