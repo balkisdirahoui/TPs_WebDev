@@ -20,41 +20,175 @@
 		  <tr>		
 			<td style="border:none;">
 					<form action="reponse.php" method="post">
-					 <table border=0px  bgcolor="white" width=100% cellspacing=5px>
+					 <table border=0px  bgcolor="white" width=100% cellspacing=5px cellpadding=6px>
                        <!--Premiere ligne du tableau-->
 						<tr>
-						<!-- Premiere cellule-->
-						<th align="right" width=40% >Nom 
-						
-						<!-- Deuxieme cellule-->
-						
-						<td align="center" width=10%>:
-						
-						</td>
-						
-						<!-- Troisieme cellule-->
-						
-						<td align="left" width=40%>Inserer champs de saisie
+							<!-- Premiere cellule-->
+							<th align="right" width=40% >Nom 
 							
-	
+							<!-- Deuxieme cellule-->
+							<td align="center" width=10%>:</td>
+							
+							<!-- Troisieme cellule-->
+							<td align="left" width=40%> <input type="text" name="nom">							
 						</tr>
-				         <!--Deuxieme ligne du tableau-->
+						
+						
+				        <!--Deuxieme ligne du tableau-->
 						<tr>
-						<!-- Premiere cellule-->
-						<th align="right" width=40% >Nom 
-						
-						<!-- Deuxieme cellule-->
-						
-						<td align="center" width=10%>:
-						
-						</td>
-						
-						<!-- Troisieme cellule-->
-						
-						<td align="left" width=40%>Inserer champs de saisie
+							<!-- Premiere cellule-->
+							<th align="right" width=40% >Pr&eacute;nom 
 							
-	
+							<!-- Deuxieme cellule-->
+							<td align="center" width=10%>:</td>
+							
+							<!-- Troisieme cellule-->
+							<td align="left" width=40%> <input type="text" name="prenom">
 						</tr>
+						
+						
+						<!--Troisieme ligne du tableau-->
+						<tr>
+							<!-- Premiere cellule-->
+							<th align="right" width=40% >Date de naissance 
+							
+							<!-- Deuxieme cellule-->
+							<td align="center" width=10%>:</td>
+							
+							<!-- Troisieme cellule-->
+							<td align="left" width=40%> <input type="date" name="dateN" >
+						</tr>
+						
+						
+						<!--Quatrieme ligne du tableau-->
+						<tr>
+							<!-- Premiere cellule-->
+							<th align="right" width=40% >N° de téléphone 
+							
+							<!-- Deuxieme cellule-->
+							<td align="center" width=10%>:</td>
+							
+							<!-- Troisieme cellule-->
+							<td align="left" width=40%> <input type="text" name="tel" >
+						</tr>
+						
+						
+						<!--Cinquieme ligne du tableau-->
+						<tr>
+							<!-- Premiere cellule-->
+							<th align="right" width=40% >Adresse 
+							
+							<!-- Deuxieme cellule-->
+							<td align="center" width=10%>:</td>
+							
+							<!-- Troisieme cellule-->
+							<td align="left" width=40%> <textarea name="adresse" > </textarea>
+						</tr>
+						
+						
+						<!--Sixieme ligne du tableau-->
+						<tr>
+							<!-- Premiere cellule-->
+							<th align="right" width=40% >Genre 
+							
+							<!-- Deuxieme cellule-->
+							<td align="center" width=10%>:</td>
+							
+							<!-- Troisieme cellule-->
+							<td align="left" width=40%> 
+								<input type="radio" name="genre" value="féminin"> 
+								<label for="féminin">F&eacute;minin</label><br>
+								<input type="radio" name="genre" value="masculin"> 
+								<label for="masculin">Masculin</label>
+						</tr>
+						
+						
+						<!--Septieme ligne du tableau-->
+						<tr>
+							<!-- Premiere cellule-->
+							<th align="right" width=40% >Civilit&eacute; 
+							
+							<!-- Deuxieme cellule-->
+							<td align="center" width=10%>:</td>
+							
+							<!-- Troisieme cellule-->
+							<td align="left" width=40%> 
+								<input type="radio" name="civilité" value="célibataire" checked> 
+								<label for="célibataire">C&eacute;libataire</label><br>
+								<input type="radio" name="civilité" value="marié"> 
+								<label for="marié">Mari&eacute;</label>
+						</tr>
+						
+						
+						
+						<!--Huitieme ligne du tableau-->
+						<tr>
+							<!-- Premiere cellule-->
+							<th align="right" width=40% >Choix 
+							
+							<!-- Deuxieme cellule-->
+							<td align="center" width=10%>:</td>
+							
+							<!-- Troisieme cellule-->
+							<td align="left" width=40%> 
+								<select id="choix">
+								  <option value=""></option>
+								  <option value="MI/USTHB">MI / USTHB</option>
+								  <option value="INFORMATIQUE/ESI">INFORMATIQUE / ESI</option>
+								  <option value="ST/USTHB">ST / USTHB </option>
+								  <option value="INFORMATIQUE/BOUMERDES">INFORMATIQUE / BOUMERDES</option>
+								  <option value="MI/ALGER1">MI / Universit&eacute; d'Alger 1</option>
+								</select>	
+						</tr>
+						
+						
+						<!--Neuvieme ligne du tableau-->
+						<tr>
+							<!-- Premiere cellule-->
+							<th align="right" width=40% >Langues souhait&eacute;es &agrave; l'universit&eacute; 
+							
+							<!-- Deuxieme cellule-->
+							<td align="center" width=10%>:</td>
+							
+							<!-- Troisieme cellule-->
+							<td align="left" width=40%> 
+								<input type="checkbox" id="Français" name="Français" value="Français" checked>
+								<label for="Français">Fran&ccedil;ais</label><br>
+								<input type="checkbox" id="Anglais" name="Anglais" value="Anglais">
+								<label for="Anglais">Anglais</label><br>
+								<input type="checkbox" id="Arabe" name="Arabe" value="Arabe">
+								<label for="Arabe">Arabe</label><br>
+								<input type="checkbox" id="AucunePréférence" name="AucunePréférence" value="AucunePréférence">
+								<label for="AucunePréférence">Aucune Pr&eacute;f&eacute;rence</label>								
+						</tr>
+						
+						
+						<!--Dixieme ligne du tableau-->
+						<tr>
+							<!-- Premiere cellule-->
+							<th align="right" width=40% >Lettre de motivation 
+							
+							<!-- Deuxieme cellule-->
+							<td align="center" width=10%>:</td>
+							
+							<!-- Troisieme cellule-->
+							<td align="left" width=40%> 
+								<input type="file" id="lettreMotivation" name="lettreMotivation">
+						</tr>
+						
+						
+						<!--Onzieme ligne du tableau-->
+						<tr >
+							
+							<!-- Premiere cellule-->
+							<td align="center" colspan="3"> 
+								<input type="submit" value="Sauvegarder"> 
+								&nbsp;&nbsp;&nbsp;
+								<input type="reset" value="Annuler">
+						</tr>
+						
+						
+						
 					 </table>
 					</form>
 
