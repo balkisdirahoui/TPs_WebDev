@@ -77,13 +77,17 @@
 							$length = count($_POST['choix']);
 							//si il ne selectione pas
 						    if($length==1  ){
+								//si un seul choix et vide 
 								if(strcmp($_POST['choix'][0],"")==0){
                             	echo "<strong>La mention</strong> : Demande de Recours.";
-								}else{
+								}
+								//si un seul choix et pas vide 
+								else{
 								echo	"<b>Sp&eacute;cialit&eacute;s </b> : ";
 								echo $_POST['choix'][0];
 								}
 							}
+							//Si choix multiple
 							else{
 							echo	"<b>Sp&eacute;cialit&eacute;s </b> :";
 								foreach ($choix as $ch)
@@ -110,6 +114,7 @@
 						
 						
 						?><br><br>
+					
                         <b>Langues souhait&eacute;es &agrave; l'universit&eacute;</b> : 
 						<?php
 							
