@@ -68,32 +68,44 @@
                         <b>Genre</b> : <?php echo $_POST['genre'];?><br><br>
                         <b>Adresse</b> : <?php echo $_POST['adresse'];?><br><br>
                         <b>Civilit&eacute;</b> : <?php echo $_POST['civilité']; ?><br><br>
-                        <b>(*) Sp&eacute;cialit&eacute;s</b> : <?php 
+                         <?php 
 					   
 						if(!empty($_POST['choix'])) 
 						{
 							
 							$choix = $_POST['choix'];
 							$length = count($_POST['choix']);
-							foreach ($choix as $ch)
-							{ 
-								//si il ne selectione pas
-								if(strcmp($ch, "")==0){
-									echo "la mention : Demande de Recours.";
+							//si il ne selectione pas
+						    if($length==1  ){
+								if(strcmp(choix[0],"")==0){
+                            	echo "<strong>La mention</strong> : Demande de Recours.";
+
 								}
-								else{
-									//si c'est le dernier element
-								if(strcmp($ch,$_POST['choix'][$length-1])==0){
+							}else{
+							echo	"<b>Sp&eacute;cialit&eacute;s </b> :";
+								foreach ($choix as $ch)
+							{ 
+
+		
+							
+								
+									//si c'est le dernier element ou le  vide
+								if(strcmp($ch,$_POST['choix'][$length-1])==0 or strcmp($ch,"")==0 ){
 								echo $ch;	
 								}
 								else{
                                 echo $ch."-";
 								}
-								}
+								
 							
-							}					
+							}
+						
+						
+						}
+
+											
 						}else{
-							echo "la mention : Demande de Recours.";
+							echo "<strong>La mention</strong> : Demande de Recours.";
 						}
 						
 						
