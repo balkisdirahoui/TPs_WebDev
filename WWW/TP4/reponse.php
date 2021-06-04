@@ -77,24 +77,23 @@
 							$length = count($_POST['choix']);
 							//si il ne selectione pas
 						    if($length==1  ){
-								if(strcmp(choix[0],"")==0){
+								if(strcmp($_POST['choix'][0],"")==0){
                             	echo "<strong>La mention</strong> : Demande de Recours.";
-
+								}else{
+								echo	"<b>Sp&eacute;cialit&eacute;s </b> : ";
+								echo $_POST['choix'][0];
 								}
-							}else{
+							}
+							else{
 							echo	"<b>Sp&eacute;cialit&eacute;s </b> :";
 								foreach ($choix as $ch)
-							{ 
-
-		
-							
-								
+							{ 													
 									//si c'est le dernier element ou le  vide
 								if(strcmp($ch,$_POST['choix'][$length-1])==0 or strcmp($ch,"")==0 ){
 								echo $ch;	
 								}
 								else{
-                                echo $ch."-";
+                                echo $ch." - ";
 								}
 								
 							
