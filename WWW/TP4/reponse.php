@@ -109,10 +109,10 @@
 								}
 								else
 								{
+									//Verfier longeur
 									$mots =explode(" ",$_POST['prenom']);
 										foreach ($mots as $mot)
 								{ 													
-										//si c'est le dernier element ou le  vide
 									if(strlen($mot)<3){
 									echo  "Le nombre minimum de caract&eacute;res du champ <b>prenom</b> est 3 <br> <br>";
 									}
