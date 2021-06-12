@@ -127,10 +127,65 @@
 
 
 						 if(empty($_POST['dateN']))
+						{
+									
+								echo "Veuillez remplir le champ obligatoire <b>date de naissance</b><br><br>";	
+								$aff=false;
+								
+						}
+						else{
+							//----------------------Expressions Regulieres-----------------------
+								if((!preg_match("#^[0-9]{2}\-[0-9]{2}\-[0-9]{4}$#",$_POST['dateN'])) && (!preg_match("#^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$#",$_POST['dateN']))) 
+									{
+										
+									echo "Veuillez taper le champ <b>date</b> en respectant la syntaxe<br> <br>";					
+									$aff=false;
+									 
+								}
+								elseif(preg_match("#^[0-9]{2}\-[0-9]{2}\-[0-9]{4}$#",$_POST['dateN']))
 								{
 									
-								echo "Veuillez remplir le champ obligatoire <b>date de naissance</b><br><br>";					
+									$date=explode("-",$_POST['dateN'],3);
+									
+									if(!checkdate ( $date[1] , $date[0] , $date[2] ))
+									{
+										echo "Veuillez saisir des information valide dans le champ <b>date</b> <br> <br>";
+										$aff=false;
+									}
+									
 								}
+								else // dans le cas de ^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$
+								{
+									$date=explode("/",$_POST['dateN'],3);
+									
+									if(!checkdate ( $date[1] , $date[0] , $date[2] ))
+									{
+										echo "Veuillez saisir des information valide dans le champ <b>date</b> <br> <br>";
+										$aff=false;
+									}
+								}
+								
+								//tester la validitée de l'age
+								if ($aff)
+								{
+										$ageInvalide=true;										
+										$age=age($_POST['dateN']);
+										
+										if(($age >= 16) && ($age <= 70))
+											$ageInvalide=false;
+										else
+										{	echo "Veuillez verifier votre date de naissance, votre age doit etre compris entre 16 et 70 ans";
+											$aff=false;
+										}
+										
+										$_POST['ageInvalide']=$ageInvalide ;
+										$_POST['age']=$age ;
+										
+								}
+								
+								
+							
+						}
 
 						if(empty($_POST['tel']))
 								{
@@ -168,7 +223,21 @@
    					   
 							
 						
-			
+						function age($dateN)
+						{
+							//transformer la date de naissance dans le bon format
+							$dateNais = str_replace('/', '-', $dateN);
+							$dateNais = date("Y-m-d", strtotime($dateNais));
+							$dateNais = new DateTime($dateNais); //convertir en DateTime pour que date_diff puisse l'analyser correctement
+							
+							//obtenir la date système 
+							$date_sys = new DateTime(); //faire appel a DateTime et non pas date pour que date_diff puisse l'analyser correctement
+							
+							$diff=date_diff($date_sys,$dateNais);
+							
+							return $diff->format("%y");
+							
+						}
 
 
 

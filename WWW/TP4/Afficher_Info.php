@@ -21,7 +21,7 @@
 		  <tr>	
 		   	
 			<td style="border:none;">
-			 <h1 align="center"><font face="Arial" color="Blue">&Egrave;tat Global </font></h1>
+			 <h1 align="center"><font face="Arial" color="Blue">&Eacute;tat Global </font></h1>
 
 					<p align="left">
 						<?php 
@@ -38,8 +38,14 @@
 							
 							/*Nouvelle Ligne */
 							$date=$_POST['dateN'];
-							echo "<b>Date de naissance</b>: $date <br><br>"; 
-
+							echo "<b>Date de naissance</b>: $date &nbsp; &nbsp; &nbsp;"; 
+							
+							//Affichage de l'age de la personne
+							$ageInvalide=$_POST['ageInvalide'];
+							$age=$_POST['age'];
+							
+							if(!$ageInvalide)
+								echo "<b>Age</b>: $age <br><br>"; 
 
 							/*Nouvelle Ligne */
 							$tel=$_POST['tel'];
@@ -59,7 +65,7 @@
 							echo " <b>Civilit&eacute;</b> : $Civ <br><br>"; 
 							/*----------------------------Choix-------------------------------------- */
 						
-								if(!empty($_POST['choix'])) 
+							if(!empty($_POST['choix'])) 
 							{
 								
 								$choix = $_POST['choix'];
@@ -93,7 +99,7 @@
 								}
 							
 							
-							}
+								}
 
 												
 							}else{
@@ -128,7 +134,7 @@
 								
 							
 							
-                             }
+                    }
 						/*----------------------------Fin Fonction Afficher-------------------------------------- */
                         Afficher();
 						
