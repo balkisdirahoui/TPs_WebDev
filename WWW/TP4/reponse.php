@@ -1,5 +1,5 @@
 <html>
-    <meta charset="utf-8"
+    <meta charset="utf-8"> 
   
   
   <head> 
@@ -47,6 +47,9 @@
 		</table>
 		<br>
 		<br>
+
+
+
 		<!--partie affichage Informations-->
 				<table border=3px bordercolor="red" bgcolor="white" width=800px margin=10px  cellspacing=10px >	
 		  <tr>	
@@ -55,89 +58,118 @@
 			 <h1 align="center"><font face="Arial" color="Blue">&Egrave;tat Global </font></h1>
 
 					<p align="left">
-						
-						<b>Nom</b> :  <?php echo $_POST['nom'];?> <br><br>
-						 
-            
-           
-                        <b>Pr&eacute;nom</b> : <?php echo $_POST['prenom'];?><br><br>
-
-                        <b>Date de naissance</b> :  <?php echo $_POST['dateN'];?><br><br>
-                        <b>N° de téléphone </b> : <?php echo $_POST['tel'];?><br><br>
-
-                        <b>Genre</b> : <?php echo $_POST['genre'];?><br><br>
-                        <b>Adresse</b> : <?php echo $_POST['adresse'];?><br><br>
-                        <b>Civilit&eacute;</b> : <?php echo $_POST['civilité']; ?><br><br>
-                         <?php 
-					   
-						if(!empty($_POST['choix'])) 
-						{
+						<?php 
+					/*----------------------------Fonction Afficher-------------------------------------- */
+	                    function Afficher()
+					{
+					/*Nouvelle Ligne */
+							$Nom=$_POST['nom'];
+							echo "<b>Nom</b>: $Nom <br><br>"; 
 							
-							$choix = $_POST['choix'];
-							$length = count($_POST['choix']);
-							//si il ne selectione pas
-						    if($length==1  ){
-								//si un seul choix et vide 
-								if(strcmp($_POST['choix'][0],"")==0){
-                            	echo "<strong>La mention</strong> : Demande de Recours.";
+							/*Nouvelle Ligne */
+							$pren=$_POST['prenom'];
+							echo "<b>Pr&eacute;nom</b>: $pren <br><br>"; 
+							
+							/*Nouvelle Ligne */
+							$date=$_POST['dateN'];
+							echo "<b>Date de naissance</b>: $date <br><br>"; 
+
+
+							/*Nouvelle Ligne */
+							$tel=$_POST['tel'];
+							echo " <b>N° de téléphone </b>: $tel <br><br>"; 
+
+							/*Nouvelle Ligne */
+							$gen=$_POST['genre'];
+							echo "<b>Genre</b> : $gen <br><br>"; 
+
+							/*Nouvelle Ligne */
+							$adr=$_POST['adresse'];
+							echo "<b>Adresse</b> : $adr <br><br>"; 
+
+
+							/*Nouvelle Ligne */
+							$Civ=$_POST['civilité'];
+							echo " <b>Civilit&eacute;</b> : $Civ <br><br>"; 
+							/*----------------------------Choix-------------------------------------- */
+						
+								if(!empty($_POST['choix'])) 
+							{
+								
+								$choix = $_POST['choix'];
+								$length = count($_POST['choix']);
+								//si il ne selectione pas
+								if($length==1  ){
+									//si un seul choix et vide 
+									if(strcmp($_POST['choix'][0],"")==0){
+									echo "<strong>La mention</strong> : Demande de Recours.";
+									}
+									//si un seul choix et pas vide 
+									else{
+									echo	"<b>Sp&eacute;cialit&eacute;s </b> : ";
+									echo $_POST['choix'][0];
+									}
 								}
-								//si un seul choix et pas vide 
+								//Si choix multiple
 								else{
-								echo	"<b>Sp&eacute;cialit&eacute;s </b> : ";
-								echo $_POST['choix'][0];
+								echo	"<b>Sp&eacute;cialit&eacute;s </b> :";
+									foreach ($choix as $ch)
+								{ 													
+										//si c'est le dernier element ou le  vide
+									if(strcmp($ch,$_POST['choix'][$length-1])==0 or strcmp($ch,"")==0 ){
+									echo $ch;	
+									}
+									else{
+									echo $ch." - ";
+									}
+									
+								
 								}
+							
+							
 							}
-							//Si choix multiple
-							else{
-							echo	"<b>Sp&eacute;cialit&eacute;s </b> :";
-								foreach ($choix as $ch)
-							{ 													
-									//si c'est le dernier element ou le  vide
-								if(strcmp($ch,$_POST['choix'][$length-1])==0 or strcmp($ch,"")==0 ){
-								echo $ch;	
+
+												
+							}else{
+								echo "<strong>La mention</strong> : Demande de Recours. ";
+							}
+							echo "<br><br>";
+							/*----------------------------Fin ligne choix -------------------------------------- */
+						
+						
+							/*----------------------------Langues-------------------------------------- */
+							$langues=$_POST['Langue'];
+							echo " <b>Langues souhait&eacute;es &agrave; l'universit&eacute;</b>:";
+							//Verifier si pas vide	
+							if(!empty($langues)) 
+								{
+									
+									//Avoir la longueur du tableau
+									$length = count($langues);
+									foreach ($langues as $langue){ 
+									//si c'est le dernier element
+										if(strcmp($langue, $langues [$length-1])==0){
+										echo $langue;	
+										}
+										else{
+										echo $langue."-";
+										}
+									}					
 								}
-								else{
-                                echo $ch." - ";
-								}
+							
+							echo "<br><br>"; 
+							/*----------------------------Fin ligne Langues-------------------------------------- */
 								
 							
-							}
-						
-						
-						}
-
-											
-						}else{
-							echo "<strong>La mention</strong> : Demande de Recours.";
-						}
-						
-						
-						
-						?><br><br>
-					
-                        <b>Langues souhait&eacute;es &agrave; l'universit&eacute;</b> : 
-						<?php
 							
+                             }
+						/*----------------------------Fin Fonction Afficher-------------------------------------- */
 
-						if(!empty($_POST['Langue'])) 
-						{
-							
-							$langues = $_POST['Langue'];
-							$length = count($_POST['Langue']);
-							foreach ($langues as $langue){ 
-							//si c'est le dernier element
-								if(strcmp($langue,$_POST['Langue'][$length-1])==0){
-								echo $langue;	
-								}
-								else{
-                                echo $langue."-";
-								}
-							}					}
 						
 						?>
-						
-						<br><br>
-                       
+					
+						 
+   
 						
 					</p>
 						
