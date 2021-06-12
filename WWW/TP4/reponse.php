@@ -51,123 +51,135 @@
 
 
 		<!--partie affichage Informations-->
-				<table border=3px bordercolor="red" bgcolor="white" width=800px margin=10px  cellspacing=10px >	
+		
+				<!--partie affichage Informations-->
+				<table border=3px bordercolor="transparent" bgcolor="white" width=800px margin=10px  cellspacing=10px >	
 		  <tr>	
 		   	
 			<td style="border:none;">
-			 <h1 align="center"><font face="Arial" color="Blue">&Egrave;tat Global </font></h1>
 
 					<p align="left">
-						<?php 
-					/*----------------------------Fonction Afficher-------------------------------------- */
-	                    function Afficher()
-					{
-					/*Nouvelle Ligne */
-							$Nom=$_POST['nom'];
-							echo "<b>Nom</b>: $Nom <br><br>"; 
-							
-							/*Nouvelle Ligne */
-							$pren=$_POST['prenom'];
-							echo "<b>Pr&eacute;nom</b>: $pren <br><br>"; 
-							
-							/*Nouvelle Ligne */
-							$date=$_POST['dateN'];
-							echo "<b>Date de naissance</b>: $date <br><br>"; 
-
-
-							/*Nouvelle Ligne */
-							$tel=$_POST['tel'];
-							echo " <b>N° de téléphone </b>: $tel <br><br>"; 
-
-							/*Nouvelle Ligne */
-							$gen=$_POST['genre'];
-							echo "<b>Genre</b> : $gen <br><br>"; 
-
-							/*Nouvelle Ligne */
-							$adr=$_POST['adresse'];
-							echo "<b>Adresse</b> : $adr <br><br>"; 
-
-
-							/*Nouvelle Ligne */
-							$Civ=$_POST['civilité'];
-							echo " <b>Civilit&eacute;</b> : $Civ <br><br>"; 
-							/*----------------------------Choix-------------------------------------- */
 						
-								if(!empty($_POST['choix'])) 
-							{
-								
-								$choix = $_POST['choix'];
-								$length = count($_POST['choix']);
-								//si il ne selectione pas
-								if($length==1  ){
-									//si un seul choix et vide 
-									if(strcmp($_POST['choix'][0],"")==0){
-									echo "<strong>La mention</strong> : Demande de Recours.";
-									}
-									//si un seul choix et pas vide 
-									else{
-									echo	"<b>Sp&eacute;cialit&eacute;s </b> : ";
-									echo $_POST['choix'][0];
-									}
-								}
-								//Si choix multiple
-								else{
-								echo	"<b>Sp&eacute;cialit&eacute;s </b> :";
-									foreach ($choix as $ch)
-								{ 													
-										//si c'est le dernier element ou le  vide
-									if(strcmp($ch,$_POST['choix'][$length-1])==0 or strcmp($ch,"")==0 ){
-									echo $ch;	
-									}
-									else{
-									echo $ch." - ";
-									}
-									
-								
-								}
-							
-							
-							}
-
-												
-							}else{
-								echo "<strong>La mention</strong> : Demande de Recours. ";
-							}
-							echo "<br><br>";
-							/*----------------------------Fin ligne choix -------------------------------------- */
+					<?php 
 						
+						//Verifier erreurs
 						
-							/*----------------------------Langues-------------------------------------- */
-							$langues=$_POST['Langue'];
-							echo " <b>Langues souhait&eacute;es &agrave; l'universit&eacute;</b>:";
-							//Verifier si pas vide	
-							if(!empty($langues)) 
+						$aff=true;
+                       if(empty($_POST['nom'])  ) 
 								{
 									
-									//Avoir la longueur du tableau
-									$length = count($langues);
-									foreach ($langues as $langue){ 
-									//si c'est le dernier element
-										if(strcmp($langue, $langues [$length-1])==0){
-										echo $langue;	
-										}
-										else{
-										echo $langue."-";
-										}
-									}					
+								echo "Veuillez remplir le champ obligatoire <b>Nom</b><br> <br>";					
+								$aff=false;
+							}
+							else
+							{
+									//----------------------Expressions Regulieres-----------------------
+								if(!preg_match("#^[A-Z]*$#",$_POST['nom'])  ) 
+									{
+										
+									echo "Veuillez taper le champ <b>Nom</b> en majuscule<br> <br>";					
+									$aff=false;
 								}
-							
-							echo "<br><br>"; 
-							/*----------------------------Fin ligne Langues-------------------------------------- */
-								
-							
-							
-                             }
-						/*----------------------------Fin Fonction Afficher-------------------------------------- */
+									//----------------------Longeur chaine----------------------
+                                    //utiliser fonction strlen pour verfier la taille de la chaine
+									$length = strlen($_POST['nom']);
+								if( $length>20 ) 
+									{
+										
+									echo "Vous avez depasser 20 caract&eacute;res dans le champ <b>Nom</b> <br> <br>";					
+									$aff=false;
+								}
 
+							}
+							
+						
+						 if(empty($_POST['prenom'])  ) 
+								{
+									
+								echo "Veuillez remplir le champ obligatoire <b>prenom</b><br><br>";					
+								$aff=false;
+							}else
+							{
+									//----------------------Expressions Regulieres-----------------------
+								if(!preg_match("#^([A-Z][a-zA-Z]*\s?)*$#",$_POST['prenom'])  ) 
+									{
+										
+									echo "Veuillez taper le champ <b>prenom</b> en respectant la syntaxe<br> <br>";					
+									$aff=false;
+								}
+								else
+								{
+									$mots =explode(" ",$_POST['prenom']);
+										foreach ($mots as $mot)
+								{ 													
+										//si c'est le dernier element ou le  vide
+									if(strlen($mot)<3){
+									echo  "Le nombre minimum de caract&eacute;res du champ <b>prenom</b> est 3 <br> <br>";
+									}
+									
+								}
+									
+
+							}
+
+							}
+
+
+
+						 if(empty($_POST['dateN']))
+								{
+									
+								echo "Veuillez remplir le champ obligatoire <b>date de naissance</b><br><br>";					
+								}
+
+						if(empty($_POST['tel']))
+								{
+									
+								echo "Veuillez remplir le champ obligatoire <b>N° de téléphone</b><br><br>";					
+								$aff=false;
+							}
+						if(empty($_POST['adresse']))
+								{
+									
+								echo "Veuillez remplir le champ obligatoire <b>adresse</b><br><br>";					
+							$aff=false;	
+							}
+							//-------utiliser Isset pour les radio button et check box-----------
+							if(!isset($_POST['genre']))
+								{
+									
+								echo "Veuillez remplir le champ obligatoire <b>Genre</b> <br><br>";					
+							$aff=false;	
+							}
+
+							if(!isset($_POST['civilité']))
+								{
+									
+								echo "Veuillez remplir le champ obligatoire <b>Civilit&eacute;</b><br><br>";					
+							$aff=false;	
+							}
+
+							if(!isset($_POST['Langue']))
+								{
+									
+								echo "Veuillez remplir le champ obligatoire <b>Langue</b><br><br>";					
+							$aff=false;	
+							}
+   					   
+							
+						
+			
+
+
+
+					    //----------------------verifier qu'il n'ya pas d'erreurs-----------------------
+						if($aff==true){
+                       //Inclure le fichier qui cree et appele la fonction Afficher()
+				        include "Afficher_Info.php";
+						}
+						
 						
 						?>
-					
 						 
    
 						
@@ -177,6 +189,12 @@
 		    </td>
 	       </tr>
 		</table>
+				
+					
+			
+						
+
+		   
 	</div>
   </body>
 </html>
