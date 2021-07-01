@@ -42,7 +42,7 @@ $Nom = $Prenom = $Date = $Ntel = $Adr = $Genre = $Civ = $Choix = $Lang = "";
 //Initilisation et affectation des variables du formulaire (pour erreurs, ect)
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-	//Verifier erreurs
+					//Verifier erreurs
 						
 						$aff=true;
                        if(empty($_POST['nom'])  ) 
@@ -210,8 +210,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							}
    					   
 
-?>				
-	<div align="center" >
+?>	
+
+	<div id ="form" align="center" <?php if($aff==true) {?>style="display:none" <?php } ?>>
 		<table border=3px bordercolor="orange" bgcolor="white" width=800px margin=0px  cellspacing=0px >
 			<td style="border:none;">
 				<h1 align="center">
