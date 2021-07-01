@@ -212,6 +212,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 ?>	
 
+    <!--Verifier si y'a des erreurs -->
 	<div id ="form" align="center" <?php if($aff==true) {?>style="display:none" <?php } ?>>
 		<table border=3px bordercolor="orange" bgcolor="white" width=800px margin=0px  cellspacing=0px >
 			<td style="border:none;">
