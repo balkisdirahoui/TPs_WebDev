@@ -11,7 +11,206 @@
   
   background="Images/fond.jpg" bgproperties="fixed" >
 
-					
+	<!-- NOUVELLE DIVISION -->
+
+	<?php
+	//Fonction pour avoir l'age
+					function age($dateN)
+						{
+							//transformer la date de naissance dans le bon format
+							$dateNais = str_replace('/', '-', $dateN);
+							$dateNais = date("Y-m-d", strtotime($dateNais));
+							$dateNais = new DateTime($dateNais); //convertir en DateTime pour que date_diff puisse l'analyser correctement
+							
+							//obtenir la date système 
+							$date_sys = new DateTime(); //faire appel a DateTime et non pas date pour que date_diff puisse l'analyser correctement
+							
+							$diff=date_diff($date_sys,$dateNais);
+							
+							return $diff->format("%y");
+							
+						}
+				?>
+
+
+	<?php
+
+// definir les variables et les mettre a vide 
+$NomErr = $PrenErr = $DateNErr = $NtelErr = $adrErr  =$genreErr = $civErr = $choixErr = $LangErr = "";
+$Nom = $Prenom = $Date = $Ntel = $Adr = $Genre = $Civ = $Choix = $Lang = "";
+
+//Initilisation et affectation des variables du formulaire (pour erreurs, ect)
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+	//Verifier erreurs
+						
+						$aff=true;
+                       if(empty($_POST['nom'])  ) 
+								{
+									
+								$NomErr= "Veuillez remplir le champ obligatoire <b>Nom</b><br> <br>";					
+								$aff=false;
+							}
+							else
+							{
+									//----------------------Expressions Regulieres-----------------------
+								if(!preg_match("#^[A-Z]*$#",$_POST['nom'])  ) 
+									{
+										
+								$NomErr= $NomErr."Veuillez taper le champ <b>Nom</b> en majuscule<br> <br>";					
+									$aff=false;
+								}
+									//----------------------Longeur chaine----------------------
+                                    //utiliser fonction strlen pour verfier la taille de la chaine
+									$length = strlen($_POST['nom']);
+								if( $length>20 ) 
+									{
+										
+									$NomErr= $NomErr."Vous avez depasser 20 caract&eacute;res dans le champ <b>Nom</b> <br> <br>";					
+									$aff=false;
+								}
+
+							}
+							
+						}
+
+
+						 if(empty($_POST['prenom'])  ) 
+								{
+									
+								$PrenErr= "Veuillez remplir le champ obligatoire <b>prenom</b><br><br>";					
+								$aff=false;
+							}else
+							{
+									//----------------------Expressions Regulieres-----------------------
+								if(!preg_match("#^([A-Z][a-zA-Z]*\s?)*$#",$_POST['prenom'])  ) 
+									{
+										
+									$PrenErr= $PrenErr. "Veuillez taper le champ <b>prenom</b> en respectant la syntaxe<br> <br>";					
+									$aff=false;
+								}
+								else
+								{
+									//Verfier longeur
+									$mots =explode(" ",$_POST['prenom']);
+										foreach ($mots as $mot)
+								{ 													
+									if(strlen($mot)<3){
+									$PrenErr= $PrenErr. "Le nombre minimum de caract&eacute;res du champ <b>prenom</b> est 3 <br> <br>";
+									}
+									
+								}
+									
+
+							}
+
+							}
+							
+
+
+
+						 if(empty($_POST['dateN']))
+						{
+									
+								$DateNErr= "Veuillez remplir le champ obligatoire <b>date de naissance</b><br><br>";	
+								$aff=false;
+								
+						}
+						else{
+							//----------------------Expressions Regulieres-----------------------
+								if((!preg_match("#^[0-9]{2}\-[0-9]{2}\-[0-9]{4}$#",$_POST['dateN'])) && (!preg_match("#^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$#",$_POST['dateN']))) 
+									{
+										
+									$DateNErr= $DateNErr."Veuillez taper le champ <b>date</b> en respectant la syntaxe<br> <br>";					
+									$aff=false;
+									 
+								}
+								elseif(preg_match("#^[0-9]{2}\-[0-9]{2}\-[0-9]{4}$#",$_POST['dateN']))
+								{
+									
+									$date=explode("-",$_POST['dateN'],3);
+									
+									if(!checkdate ( $date[1] , $date[0] , $date[2] ))
+									{
+										$DateNErr= $DateNErr. "Veuillez saisir des information valide dans le champ <b>date</b> <br> <br>";
+										$aff=false;
+									}
+									
+								}
+								else // dans le cas de ^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$
+								{
+									$date=explode("/",$_POST['dateN'],3);
+									
+									if(!checkdate ( $date[1] , $date[0] , $date[2] ))
+									{
+										$DateNErr= $DateNErr."Veuillez saisir des information valide dans le champ <b>date</b> <br> <br>";
+										$aff=false;
+									}
+								}
+								
+								//tester la validitée de l'age
+								if ($aff)
+								{
+										$ageInvalide=true;										
+										$age=age($_POST['dateN']);
+										
+										if(($age >= 16) && ($age <= 70))
+											$ageInvalide=false;
+										else
+										{	$DateNErr= $DateNErr."Veuillez verifier votre date de naissance, votre age doit etre compris entre 16 et 70 ans";
+											$aff=false;
+										}
+										
+										$_POST['ageInvalide']=$ageInvalide ;
+										$_POST['age']=$age ;
+										
+								}
+							
+						}
+
+
+
+
+						if(empty($_POST['tel']))
+								{
+									
+								$NtelErr=  "Veuillez remplir le champ obligatoire <b>N° de téléphone</b><br><br>";					
+								$aff=false;
+							}
+							//Adresse
+						if(empty($_POST['adresse']))
+								{
+									
+								$adrErr=  "Veuillez remplir le champ obligatoire <b>adresse</b><br><br>";					
+							$aff=false;	
+							}
+							//genre
+							//-------utiliser Isset pour les radio button et check box-----------
+							if(!isset($_POST['genre']))
+								{
+									
+								$genreErr=  "Veuillez remplir le champ obligatoire <b>Genre</b> <br><br>";					
+							$aff=false;	
+							}
+
+							//civilite
+							if(!isset($_POST['civilité']))
+								{
+									
+								$civErr= "Veuillez remplir le champ obligatoire <b>Civilit&eacute;</b><br><br>";					
+							$aff=false;	
+							}
+
+                            //Langue
+							if(!isset($_POST['Langue']))
+								{
+									
+								$LangErr=  "Veuillez remplir le champ obligatoire <b>Langue</b><br><br>";					
+							$aff=false;	
+							}
+   					   
+
+?>				
 	<div align="center" >
 		<table border=3px bordercolor="orange" bgcolor="white" width=800px margin=0px  cellspacing=0px >
 			<td style="border:none;">
@@ -33,7 +232,10 @@
 							<td align="center" width=10%>:</td>
 							
 							<!-- Troisieme cellule-->
-							<td align="left" width=40%> <input type="text" name="nom">							
+							<!-- Value est prise de php pour afficher les champs derreurs-->
+							<td align="left" width=40%> <input type="text" name="nom" value=<?php echo htmlspecialchars(@$_POST['nom']) ?>>
+							<!-- SPAN ERROR : pour afficher es erreur en bas des fields en rouge. -->
+							<span class="error" style="color:red;font-size:10px; text-align:bottom; " ><?php echo "<br>".$NomErr; ?></span>							
 						</tr>
 						
 						
@@ -46,7 +248,9 @@
 							<td align="center" width=10%>:</td>
 							
 							<!-- Troisieme cellule-->
-							<td align="left" width=40%> <input type="text" name="prenom">
+							<td align="left" width=40%> <input type="text" name="prenom" value=<?php echo htmlspecialchars(@$_POST['prenom']) ?>>
+							<!-- SPAN ERROR : pour afficher es erreur en bas des fields en rouge. -->
+							<span class="error" style="color:red;font-size:10px; text-align:bottom; " ><?php echo "<br>".$PrenErr; ?></span>	
 						</tr>
 						
 						
@@ -59,7 +263,9 @@
 							<td align="center" width=10%>:</td>
 							
 							<!-- Troisieme cellule-->
-							<td align="left" width=40%> <input type="text" name="dateN" >
+							<td align="left" width=40%> <input type="text" name="dateN" value=<?php echo htmlspecialchars(@$_POST['dateN']) ?> >
+							<!-- SPAN ERROR : pour afficher es erreur en bas des fields en rouge. -->
+							<span class="error" style="color:red;font-size:10px; text-align:bottom; " ><?php echo "<br>".$DateNErr; ?></span>	
 						</tr>
 						
 						
@@ -72,7 +278,9 @@
 							<td align="center" width=10%>:</td>
 							
 							<!-- Troisieme cellule-->
-							<td align="left" width=40%> <input type="text" name="tel" >
+							<td align="left" width=40%> <input type="text" name="tel" value=<?php echo htmlspecialchars(@$_POST['tel']) ?>>
+							<!-- SPAN ERROR : pour afficher es erreur en bas des fields en rouge. -->
+							<span class="error" style="color:red;font-size:10px; text-align:bottom; " ><?php echo "<br>".$NtelErr; ?></span>	
 						</tr>
 						
 						
@@ -85,7 +293,9 @@
 							<td align="center" width=10%>:</td>
 							
 							<!-- Troisieme cellule-->
-							<td align="left" width=40%> <textarea name="adresse" > </textarea>
+							<td align="left" width=40%> <textarea name="adresse" value=<?php echo htmlspecialchars(@$_POST['adresse']) ?> > </textarea>
+							<!-- SPAN ERROR : pour afficher es erreur en bas des fields en rouge. -->
+							<span class="error" style="color:red;font-size:10px; text-align:bottom; " ><?php echo "<br>".$adrErr; ?></span>	
 						</tr>
 						
 						
@@ -99,10 +309,17 @@
 							
 							<!-- Troisieme cellule-->
 							<td align="left" width=40%> 
-								<input type="radio" name="genre" value="féminin"> 
+						
+								<input type="radio" name="genre" value="féminin" <?php
+								//Sauvegarder les valeurs des champs si erreur
+								 if($_POST['genre']=="féminin") echo "checked"; 	?> />
+								
 								<label for="féminin">F&eacute;minin</label><br>
-								<input type="radio" name="genre" value="masculin"> 
+								<input type="radio" name="genre" value="masculin"<?php
+								 if($_POST['genre']=="masculin") echo "checked"; 	?> /> 
 								<label for="masculin">Masculin</label>
+								<!-- SPAN ERROR : pour afficher es erreur en bas des fields en rouge. -->
+							<span class="error" style="color:red;font-size:10px; text-align:bottom; " ><?php echo "<br>".$genreErr; ?></span>	
 						</tr>
 						
 						
@@ -116,10 +333,16 @@
 							
 							<!-- Troisieme cellule-->
 							<td align="left" width=40%> 
-								<input type="radio" name="civilité" value="célibataire" checked> 
+								<input type="radio" name="civilité" value="célibataire" checked <?php
+								//Sauvegarder les valeurs des champs si erreur
+								 if($_POST['civilité']=="célibataire") echo "checked"; 	?> />
 								<label for="célibataire">C&eacute;libataire</label><br>
-								<input type="radio" name="civilité" value="marié"> 
+								<input type="radio" name="civilité" value="marié"  <?php
+								//Sauvegarder les valeurs des champs si erreur
+								 if($_POST['civilité']=="marié") echo "checked"; 	?> />
 								<label for="marié">Mari&eacute;</label>
+								<!-- SPAN ERROR : pour afficher es erreur en bas des fields en rouge. -->
+							<span class="error" style="color:red;font-size:10px; text-align:bottom; " ><?php echo "<br>".$civErr; ?></span>	
 						</tr>
 						
 						
@@ -136,7 +359,7 @@
 							<td align="left" width=40%> 
 								<select  id="choix" name="choix[]" size=6   multiple>
 								  <option value=""   ></option>
-								  <option value="MI/USTHB">MI / USTHB</option>
+								  <option value="MI/USTHB">MI / USTHB      </option>
 								  <option value="INFORMATIQUE/ESI">INFORMATIQUE / ESI</option>
 								  <option value="ST/USTHB">ST / USTHB </option>
 								  <option value="INFORMATIQUE/BOUMERDES">INFORMATIQUE / BOUMERDES</option>
@@ -156,14 +379,29 @@
 							<!-- Troisieme cellule-->
 							<td align="left" width=40%> 
 								<!--Tableau [] afin de recuperer ses valeurs dans le fichier php-->
-								<input type="checkbox" id="Français" name="Langue[]" value="Français" checked>
+								<input type="checkbox" id="Français" name="Langue[]" value="Français" checked 
+								<?php
+								//Sauvegarder les valeurs des champs si erreur
+								//Utiliser la methode in_array
+								 if(in_array("Français",$_POST['Langue'])) echo "checked"; 	?> />
 								<label for="Français">Fran&ccedil;ais</label><br>
-								<input type="checkbox" id="Anglais" name="Langue[]" value="Anglais">
+								<input type="checkbox" id="Anglais" name="Langue[]" value="Anglais" <?php
+								//Sauvegarder les valeurs des champs si erreur
+								//Utiliser la methode in_array
+								 if(in_array("Anglais",$_POST['Langue'])) echo "checked"; 	?> />
 								<label for="Anglais">Anglais</label><br>
-								<input type="checkbox" id="Arabe" name="Langue[]" value="Arabe">
+								<input type="checkbox" id="Arabe" name="Langue[]" value="Arabe" <?php
+								//Sauvegarder les valeurs des champs si erreur
+								//Utiliser la methode in_array
+								 if(in_array("Arabe",$_POST['Langue'])) echo "checked"; 	?> />
 								<label for="Arabe">Arabe</label><br>
-								<input type="checkbox" id="Aucune Préférence" name="Langue[]" value="Aucune Préférence">
-								<label for="Aucune Préférence">Aucune Pr&eacute;f&eacute;rence</label>								
+								<input type="checkbox" id="Aucune Préférence" name="Langue[]" value="Aucune Préférence" <?php
+								//Sauvegarder les valeurs des champs si erreur
+								//Utiliser la methode in_array
+								 if(in_array("Anglais",$_POST['Langue'])) echo "Aucune Pr&eacute;f&eacute;rence"; 	?> />
+								<label for="Aucune Préférence">Aucune Pr&eacute;f&eacute;rence</label>
+								<!-- SPAN ERROR : pour afficher es erreur en bas des fields en rouge. -->
+							<span class="error" style="color:red;font-size:10px; text-align:bottom; " ><?php echo "<br>".$LangErr; ?></span>									
 						</tr>
 						
 						
@@ -214,7 +452,7 @@
 <?php if(isset($_POST['submit'])){ ?>
 
 
-	
+<?php if($aff==true){ ?>	
 <div align="center" class ="reponse" >
 		
 		<table border=3px bordercolor="orange" bgcolor="white" width=800px margin=10px  cellspacing=10px >	
@@ -225,24 +463,29 @@
 					<p align="center">
 					
 					
-						Merci d’avoir rempli le formulaire !
+					
 						
 						<?php
+						 
+							  echo "Merci d’avoir rempli le formulaire !";
+				if ( strcmp ( $_POST['genre'] , "féminin" ) != 0)
+										{
+											$fem= false;
+											echo 'Mr ';
+										}
+										else
+										{
+											$fem= true;
+											if ( strcmp ( $_POST['civilité'] , "célibataire" ) == 0)
+											{
+												echo 'Melle ';
+											}
+											else
+												echo 'Mme ';
+										}
+										echo $_POST['nom'];
+									}
 						
-							if ( strcmp ( $_POST['genre'] , "féminin" ) != 0)
-							{
-								echo 'Mr ';
-							}
-							else
-							{
-								if ( strcmp ( $_POST['civilité'] , "célibataire" ) == 0)
-								{
-									echo 'Melle ';
-								}
-								else
-									echo 'Mme ';
-							}
-							echo $_POST['nom'];
 						
 						?>
 					</p>
@@ -254,201 +497,9 @@
 		<br>
 		<br>
 
-				<?php
-					function age($dateN)
-						{
-							//transformer la date de naissance dans le bon format
-							$dateNais = str_replace('/', '-', $dateN);
-							$dateNais = date("Y-m-d", strtotime($dateNais));
-							$dateNais = new DateTime($dateNais); //convertir en DateTime pour que date_diff puisse l'analyser correctement
-							
-							//obtenir la date système 
-							$date_sys = new DateTime(); //faire appel a DateTime et non pas date pour que date_diff puisse l'analyser correctement
-							
-							$diff=date_diff($date_sys,$dateNais);
-							
-							return $diff->format("%y");
-							
-						}
-				?>
+				
 
-
-		<!--partie affichage Informations-->
 		
-				<!--partie affichage Informations-->
-				<table border=3px bordercolor="transparent" bgcolor="white" width=800px margin=10px  cellspacing=10px >	
-		  <tr>	
-		   	
-			<td style="border:none;">
-
-					<p align="left">
-					
-						
-					<?php 
-					
-						
-						//Verifier erreurs
-						
-						$aff=true;
-                       if(empty($_POST['nom'])  ) 
-								{
-									
-								echo "Veuillez remplir le champ obligatoire <b>Nom</b><br> <br>";					
-								$aff=false;
-							}
-							else
-							{
-									//----------------------Expressions Regulieres-----------------------
-								if(!preg_match("#^[A-Z]*$#",$_POST['nom'])  ) 
-									{
-										
-									echo "Veuillez taper le champ <b>Nom</b> en majuscule<br> <br>";					
-									$aff=false;
-								}
-									//----------------------Longeur chaine----------------------
-                                    //utiliser fonction strlen pour verfier la taille de la chaine
-									$length = strlen($_POST['nom']);
-								if( $length>20 ) 
-									{
-										
-									echo "Vous avez depasser 20 caract&eacute;res dans le champ <b>Nom</b> <br> <br>";					
-									$aff=false;
-								}
-
-							}
-							
-						
-						 if(empty($_POST['prenom'])  ) 
-								{
-									
-								echo "Veuillez remplir le champ obligatoire <b>prenom</b><br><br>";					
-								$aff=false;
-							}else
-							{
-									//----------------------Expressions Regulieres-----------------------
-								if(!preg_match("#^([A-Z][a-zA-Z]*\s?)*$#",$_POST['prenom'])  ) 
-									{
-										
-									echo "Veuillez taper le champ <b>prenom</b> en respectant la syntaxe<br> <br>";					
-									$aff=false;
-								}
-								else
-								{
-									//Verfier longeur
-									$mots =explode(" ",$_POST['prenom']);
-										foreach ($mots as $mot)
-								{ 													
-									if(strlen($mot)<3){
-									echo  "Le nombre minimum de caract&eacute;res du champ <b>prenom</b> est 3 <br> <br>";
-									}
-									
-								}
-									
-
-							}
-
-							}
-
-
-
-						 if(empty($_POST['dateN']))
-						{
-									
-								echo "Veuillez remplir le champ obligatoire <b>date de naissance</b><br><br>";	
-								$aff=false;
-								
-						}
-						else{
-							//----------------------Expressions Regulieres-----------------------
-								if((!preg_match("#^[0-9]{2}\-[0-9]{2}\-[0-9]{4}$#",$_POST['dateN'])) && (!preg_match("#^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$#",$_POST['dateN']))) 
-									{
-										
-									echo "Veuillez taper le champ <b>date</b> en respectant la syntaxe<br> <br>";					
-									$aff=false;
-									 
-								}
-								elseif(preg_match("#^[0-9]{2}\-[0-9]{2}\-[0-9]{4}$#",$_POST['dateN']))
-								{
-									
-									$date=explode("-",$_POST['dateN'],3);
-									
-									if(!checkdate ( $date[1] , $date[0] , $date[2] ))
-									{
-										echo "Veuillez saisir des information valide dans le champ <b>date</b> <br> <br>";
-										$aff=false;
-									}
-									
-								}
-								else // dans le cas de ^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$
-								{
-									$date=explode("/",$_POST['dateN'],3);
-									
-									if(!checkdate ( $date[1] , $date[0] , $date[2] ))
-									{
-										echo "Veuillez saisir des information valide dans le champ <b>date</b> <br> <br>";
-										$aff=false;
-									}
-								}
-								
-								//tester la validitée de l'age
-								if ($aff)
-								{
-										$ageInvalide=true;										
-										$age=age($_POST['dateN']);
-										
-										if(($age >= 16) && ($age <= 70))
-											$ageInvalide=false;
-										else
-										{	echo "Veuillez verifier votre date de naissance, votre age doit etre compris entre 16 et 70 ans";
-											$aff=false;
-										}
-										
-										$_POST['ageInvalide']=$ageInvalide ;
-										$_POST['age']=$age ;
-										
-								}
-							
-						}
-
-						if(empty($_POST['tel']))
-								{
-									
-								echo "Veuillez remplir le champ obligatoire <b>N° de téléphone</b><br><br>";					
-								$aff=false;
-							}
-						if(empty($_POST['adresse']))
-								{
-									
-								echo "Veuillez remplir le champ obligatoire <b>adresse</b><br><br>";					
-							$aff=false;	
-							}
-							//-------utiliser Isset pour les radio button et check box-----------
-							if(!isset($_POST['genre']))
-								{
-									
-								echo "Veuillez remplir le champ obligatoire <b>Genre</b> <br><br>";					
-							$aff=false;	
-							}
-
-							if(!isset($_POST['civilité']))
-								{
-									
-								echo "Veuillez remplir le champ obligatoire <b>Civilit&eacute;</b><br><br>";					
-							$aff=false;	
-							}
-
-							if(!isset($_POST['Langue']))
-								{
-									
-								echo "Veuillez remplir le champ obligatoire <b>Langue</b><br><br>";					
-							$aff=false;	
-							}
-   					   
-							
-						?>
-
-
-
 
 
 
