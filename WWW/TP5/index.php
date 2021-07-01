@@ -178,11 +178,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 								$aff=false;
 							}
 							//Adresse
-						if(empty($_POST['adresse']))
-								{
-									
-								$adrErr=  "Veuillez remplir le champ obligatoire <b>adresse</b><br><br>";					
-							$aff=false;	
+                         //Verfier si un champ text area est vide
+						if(!strlen(trim($_POST['adresse']))){
+								
+							$adrErr= "Veuillez remplir le champ obligatoire <b>adresse</b><br><br>";					
+							$aff=false;
 							}
 							//genre
 							//-------utiliser Isset pour les radio button et check box-----------
