@@ -37,7 +37,7 @@
 
 // definir les variables et les mettre a vide 
 $NomErr = $PrenErr = $DateNErr = $NtelErr = $adrErr  =$genreErr = $civErr = $choixErr = $LangErr = "";
-$Nom = $Prenom = $Date = $Ntel = $Adr = $Genre = $Civ = $Choix = $Lang = "";
+
 
 //Initilisation et affectation des variables du formulaire (pour erreurs, ect)
 
@@ -295,7 +295,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							<td align="center" width=10%>:</td>
 							
 							<!-- Troisieme cellule-->
-							<td align="left" width=40%> <textarea name="adresse" value=<?php echo htmlspecialchars(@$_POST['adresse']) ?> > </textarea>
+							<td align="left" width=40%> <textarea name="adresse" > <?php echo htmlspecialchars(@$_POST['adresse']) ?> </textarea>
 							<!-- SPAN ERROR : pour afficher es erreur en bas des fields en rouge. -->
 							<span class="error" style="color:red;font-size:10px; text-align:bottom; " ><?php echo "<br>".$adrErr; ?></span>	
 						</tr>
