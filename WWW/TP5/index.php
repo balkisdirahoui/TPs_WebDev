@@ -14,6 +14,7 @@
 	<!-- NOUVELLE DIVISION -->
 
 	<?php
+	
 	//Fonction pour avoir l'age
 					function age($dateN)
 						{
@@ -34,6 +35,8 @@
 
 
 	<?php
+	//Verifier que si le bouton envoyé est cliqué 
+if(isset($_POST['submit'])){
 
 // definir les variables et les mettre a vide 
 $NomErr = $PrenErr = $DateNErr = $NtelErr = $adrErr  =$genreErr = $civErr = $choixErr = $LangErr = "";
@@ -208,6 +211,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 								$LangErr=  "Veuillez remplir le champ obligatoire <b>Langue</b><br><br>";					
 							$aff=false;	
 							}
+}
    					   
 
 ?>	
@@ -237,7 +241,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							<!-- Value est prise de php pour afficher les champs derreurs-->
 							<td align="left" width=40%> <input type="text" name="nom" value=<?php echo htmlspecialchars(@$_POST['nom']) ?>>
 							<!-- SPAN ERROR : pour afficher es erreur en bas des fields en rouge. -->
-							<span class="error" style="color:red;font-size:10px; text-align:bottom; " ><?php echo "<br>".$NomErr; ?></span>							
+							<span class="error" ><?php echo "<br><font color='red' size='1'>".$NomErr."</font>"; ?></span>							
 						</tr>
 						
 						
@@ -252,7 +256,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							<!-- Troisieme cellule-->
 							<td align="left" width=40%> <input type="text" name="prenom" value=<?php echo htmlspecialchars(@$_POST['prenom']) ?>>
 							<!-- SPAN ERROR : pour afficher es erreur en bas des fields en rouge. -->
-							<span class="error" style="color:red;font-size:10px; text-align:bottom; " ><?php echo "<br>".$PrenErr; ?></span>	
+							<span class="error" ><?php echo "<br><font color='red' size='1'>".$PrenErr."</font>"; ?></span>	
 						</tr>
 						
 						
@@ -267,7 +271,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							<!-- Troisieme cellule-->
 							<td align="left" width=40%> <input type="text" name="dateN" value=<?php echo htmlspecialchars(@$_POST['dateN']) ?> >
 							<!-- SPAN ERROR : pour afficher es erreur en bas des fields en rouge. -->
-							<span class="error" style="color:red;font-size:10px; text-align:bottom; " ><?php echo "<br>".$DateNErr; ?></span>	
+							<span class="error"  ><?php echo "<br><font color='red' size='1'>".$DateNErr."</font>"; ?></span>	
 						</tr>
 						
 						
@@ -282,7 +286,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							<!-- Troisieme cellule-->
 							<td align="left" width=40%> <input type="text" name="tel" value=<?php echo htmlspecialchars(@$_POST['tel']) ?>>
 							<!-- SPAN ERROR : pour afficher es erreur en bas des fields en rouge. -->
-							<span class="error" style="color:red;font-size:10px; text-align:bottom; " ><?php echo "<br>".$NtelErr; ?></span>	
+							<span class="error"  ><?php echo "<br><font color='red' size='1'>".$NtelErr."</font>"; ?></span>	
 						</tr>
 						
 						
@@ -297,7 +301,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							<!-- Troisieme cellule-->
 							<td align="left" width=40%> <textarea name="adresse" > <?php echo htmlspecialchars(@$_POST['adresse']) ?> </textarea>
 							<!-- SPAN ERROR : pour afficher es erreur en bas des fields en rouge. -->
-							<span class="error" style="color:red;font-size:10px; text-align:bottom; " ><?php echo "<br>".$adrErr; ?></span>	
+							<span class="error"  ><?php echo "<br><font color='red' size='1'>".$adrErr."</font>"; ?></span>	
 						</tr>
 						
 						
@@ -321,7 +325,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 								 if($_POST['genre']=="masculin") echo "checked"; 	?> /> 
 								<label for="masculin">Masculin</label>
 								<!-- SPAN ERROR : pour afficher es erreur en bas des fields en rouge. -->
-							<span class="error" style="color:red;font-size:10px; text-align:bottom; " ><?php echo "<br>".$genreErr; ?></span>	
+							<span class="error"  ><?php echo "<br><font color='red' size='1'>".$genreErr."</font>"; ?></span>	
 						</tr>
 						
 						
@@ -344,7 +348,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 								 if($_POST['civilité']=="marié") echo "checked"; 	?> />
 								<label for="marié">Mari&eacute;</label>
 								<!-- SPAN ERROR : pour afficher es erreur en bas des fields en rouge. -->
-							<span class="error" style="color:red;font-size:10px; text-align:bottom; " ><?php echo "<br>".$civErr; ?></span>	
+							<span class="error"  ><?php echo "<br><font color='red' size='1'>".$civErr."</font>"; ?></span>	
 						</tr>
 						
 						
@@ -403,7 +407,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 								 if(in_array("Anglais",$_POST['Langue'])) echo "Aucune Pr&eacute;f&eacute;rence"; 	?> />
 								<label for="Aucune Préférence">Aucune Pr&eacute;f&eacute;rence</label>
 								<!-- SPAN ERROR : pour afficher es erreur en bas des fields en rouge. -->
-							<span class="error" style="color:red;font-size:10px; text-align:bottom; " ><?php echo "<br>".$LangErr; ?></span>									
+							<span  ><?php echo "<br><font color='red' size='1'>".$LangErr."</font>"; ?></span>									
 						</tr>
 						
 						
